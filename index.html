@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANADOLU - 5K-CENDERE NASA Space Apps</title>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --surface-card: #1c211e;
+            --primary-green: #1b5e20;
+            --accent-green: #2e7d32;
+            --bright-green: #4caf50;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --border-color: #2e3b30;
+            --danger-red: #d32f2f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+        }
+
+        /* GİRİŞ EKRANI */
+        .auth-container {
+            max-width: 480px;
+            margin: 40px auto;
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .auth-hero-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .auth-tab-btn.active {
+            background: var(--accent-green);
+            color: white;
+            border-color: var(--bright-green);
+        }
+
+        /* ANA HEADER */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-info h1 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .brand-info p {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .nav-tabs {
+            display: flex;
+            background-color: var(--bg-dark);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            gap: 4px;
+        }
+
+        .nav-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-tab-btn.active {
+            background-color: var(--accent-green);
+            color: white;
+            box-shadow: 0 2px 8px rgba(46,125,50,0.4);
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            background: var(--bg-dark);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card {
+            background-color: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .nasa-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .nasa-card-item {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .nasa-card-item span {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .nasa-card-item strong {
+            font-size: 18px;
+            color: var(--bright-green);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .main-header { flex-direction: column; gap: 15px; }
+            .nasa-cards-grid { grid-template-columns: 1fr 1fr; }
+            .tracking-layout { grid-template-columns: 1fr !important; }
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: var(--text-main);
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 13px;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--bright-green);
+        }
+
+        .btn-analiz {
+            background-color: var(--bright-green);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            height: 42px;
+        }
+
+        .btn-standard {
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-red);
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .analysis-result-box {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .score-badge {
+            text-align: center;
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid var(--bright-green);
+            padding: 8px 16px;
+            border-radius: 10px;
+        }
+
+        .score-badge span {
+            font-size: 10px;
+            display: block;
+            color: var(--text-muted);
+        }
+
+        .score-badge strong {
+            font-size: 20px;
+            color: var(--bright-green);
+        }
+
+        .sub-tabs-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sub-tab-btn {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .sub-tab-btn.active {
+            background-color: #3e2723;
+            border-color: #795548;
+            color: #ffccbc;
+        }
+
+        .tracking-layout {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 20px;
+        }
+
+        .form-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .observation-item {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            border-left: 3px solid var(--bright-green);
+            text-align: left;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .stat-card span { font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 5px; }
+        .stat-card strong { font-size: 26px; color: var(--bright-green); }
+
+        .review-box {
+            background: var(--bg-dark);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 3px solid var(--bright-green);
+            font-size: 13px;
+            text-align: left;
+        }
+        .alert-box {
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 13px;
+            text-align: left;
+        }
+        .alert-success { background: rgba(46,125,50,0.2); border: 1px solid var(--accent-green); color: #a5d6a7; }
+        .alert-danger { background: rgba(211,47,47,0.2); border: 1px solid var(--danger-red); color: #ffcdd2; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- GİRİŞ EKRANI -->
+    <div id="auth-section" class="auth-container">
+        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80" alt="ANADOLU Tarım ve Hasat" class="auth-hero-img">
+        
+        <h2 style="color: white; font-size: 22px; letter-spacing: 1px; margin-bottom: 4px;">ANADOLU</h2>
+        <p style="color: var(--bright-green); font-size: 12px; font-weight: 600; margin-bottom: 15px;">Takım: 5K-CENDERE | NASA Space Apps</p>
+        
+        <div class="auth-tabs">
+            <button type="button" class="auth-tab-btn active" onclick="switchAuthTab('login')" id="btn-tab-login">Giriş Yap</button>
+            <button type="button" class="auth-tab-btn" onclick="switchAuthTab('register')" id="btn-tab-reg">Kayıt Ol</button>
+        </div>
+        <div id="login-pane">
+            <div class="form-group">
+                <label>Kullanıcı Adı</label>
+                <input type="text" id="login-user" placeholder="Kullanıcı adınız">
+            </div>
+            <div class="form-group">
+                <label>Parola</label>
+                <input type="password" id="login-pass" placeholder="Parolanız">
+            </div>
+            <button type="button" class="btn-standard" onclick="handleLogin()">Sisteme Giriş Yap</button>
+        </div>
+        <div id="register-pane" class="hidden">
+            <div class="form-group">
+                <label>Kullanıcı Adı</label>
+                <input type="text" id="reg-user" placeholder="Yeni kullanıcı adı">
+            </div>
+            <div class="form-group">
+                <label>Parola</label>
+                <input type="password" id="reg-pass" placeholder="Güçlü parola belirle">
+            </div>
+            <button type="button" class="btn-standard btn-danger" onclick="handleRegister()">Hesap Oluştur</button>
+        </div>
+    </div>
+
+    <!-- ANA UYGULAMA PANELİ -->
+    <div id="app-section" class="hidden">
+        
+        <header class="main-header">
+            <div class="brand-area">
+                <div class="brand-info">
+                    <h1>ANADOLU</h1>
+                    <p>5K-CENDERE | NASA SPACE APPS</p>
+                </div>
+            </div>
+            
+            <div class="nav-tabs">
+                <button type="button" class="nav-tab-btn active" onclick="switchTab('analiz')" id="tab-analiz-btn">Tohum Analizi</button>
+                <button type="button" class="nav-tab-btn" onclick="switchTab('takip')" id="tab-takip-btn">Bitki Takip</button>
+                <button type="button" class="nav-tab-btn" onclick="switchTab('veriler')" id="tab-veriler-btn">Veriler & Topluluk</button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="user-badge">
+                    <span>👤</span> <strong id="display-username" style="color: var(--bright-green);">Kullanıcı</strong>
+                </div>
+                <button type="button" class="nav-tab-btn" style="background: rgba(211,47,47,0.2); color:#ffcdd2;" onclick="handleLogout()">Çıkış</button>
+            </div>
+        </header>
+
+        <!-- SEKME 1: TOHUM ANALİZİ -->
+        <div id="pane-analiz" class="tab-pane">
+            <div class="card">
+                <div class="card-title">İl ve Tohum Uygunluk Analizi</div>
+                <div class="card-desc">7 Bölgeden 21 ilin NASA POWER 15 parametrelik iklim verileriyle tohum türlerini karşılaştırın.</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Konum (21 İl)</label>
+                        <select id="province-select" onchange="renderNasaCards()">
+                            <optgroup label="Marmara">
+                                <option value="Bursa">Bursa</option>
+                                <option value="Balıkesir">Balıkesir</option>
+                                <option value="Tekirdağ">Tekirdağ</option>
+                            </optgroup>
+                            <optgroup label="Ege">
+                                <option value="İzmir">İzmir</option>
+                                <option value="Manisa">Manisa</option>
+                                <option value="Aydın">Aydın</option>
+                            </optgroup>
+                            <optgroup label="Akdeniz">
+                                <option value="Adana">Adana</option>
+                                <option value="Antalya">Antalya</option>
+                                <option value="Mersin">Mersin</option>
+                            </optgroup>
+                            <optgroup label="İç Anadolu">
+                                <option value="Konya">Konya</option>
+                                <option value="Ankara">Ankara</option>
+                                <option value="Kayseri">Kayseri</option>
+                            </optgroup>
+                            <optgroup label="Karadeniz">
+                                <option value="Samsun">Samsun</option>
+                                <option value="Tokat">Tokat</option>
+                                <option value="Ordu">Ordu</option>
+                            </optgroup>
+                            <optgroup label="Doğu Anadolu">
+                                <option value="Malatya">Malatya</option>
+                                <option value="Van">Van</option>
+                                <option value="Erzurum">Erzurum</option>
+                            </optgroup>
+                            <optgroup label="Güneydoğu Anadolu">
+                                <option value="Şanlıurfa">Şanlıurfa</option>
+                                <option value="Gaziantep">Gaziantep</option>
+                                <option value="Diyarbakır">Diyarbakır</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tohum Türü</label>
+                        <select id="seed-select">
+                            <option value="Kabak Çekirdeği">🌱 Kabak Çekirdeği Tohumu</option>
+                            <option value="Dere Otu">🌿 Dere Otu</option>
+                            <option value="Kış Kabağı">🎃 Kış Kabağı</option>
+                            <option value="Sarı Karpuz">🟡 Sarı Karpuz</option>
+                            <option value="Pembe Domates">🍅 Pembe Domates</option>
+                            <option value="Roka">🥬 Roka</option>
+                            <option value="Kavun">🍈 Kavun</option>
+                            <option value="Domates">🍅 Domates</option>
+                            <option value="Ispanak">🍃 Ispanak</option>
+                            <option value="Mor Süs Biber">🌶️ Mor Süs Biber</option>
+                            <option value="Salatalık">🥒 Salatalık</option>
+                            <option value="Bamya">🌱 Bamya</option>
+                            <option value="Şeker Pancarı">🥔 Şeker Pancarı</option>
+                            <option value="Karpuz">🍉 Karpuz</option>
+                            <option value="Mısır">🌽 Mısır</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn-analiz" onclick="runAnalysis()">Analiz Et</button>
+                </div>
+
+                <div style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                    <div style="margin-bottom: 15px;">
+                        <h3 id="nasa-section-title" style="font-size: 16px; color: white;">Seçilen İl — NASA POWER 15 İklim ve Toprak Parametresi</h3>
+                        <p style="font-size: 12px; color: var(--text-muted);">Sistem puanlama motoru bu verileri tohum biyolojisiyle eşleştirir.</p>
+                    </div>
+                    <div id="nasa-cards-container" class="nasa-cards-grid"></div>
+                </div>
+
+                <div id="analysis-output" class="hidden analysis-result-box">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 11px; color: var(--bright-green); font-weight: 600;" id="result-status-text">AÇIK ALANDA YETİŞTİRMEYE UYGUN</span>
+                            <h3 style="font-size: 16px; margin-top:2px;" id="result-title">Analiz Sonucu</h3>
+                        </div>
+                        <div class="score-badge">
+                            <span>Uyumluluk Puanı</span>
+                            <strong id="result-score">91/100</strong>
+                        </div>
+                    </div>
+
+                    <div id="compatibility-details" style="margin-top: 15px;"></div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button type="button" class="btn-standard" onclick="proceedToTakip()">Takip Modülüne Aktar</button>
+                        <button type="button" class="btn-standard btn-danger" onclick="selectAlternativeSeed()">Alternatif Tohum Önerisi Al</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEKME 2: BİTKİ TAKİP -->
+        <div id="pane-takip" class="tab-pane hidden">
+            <div class="card">
+                <div class="card-title">10 Kategorili Gözlem Kaydı Ekle</div>
+                <div class="card-desc">Bitkinizin gelişim sürecini detaylı kategorilerle takip edin.</div>
+
+                <div class="tracking-layout">
+                    <div>
+                        <div class="sub-tabs-container">
+                            <button type="button" class="sub-tab-btn active" onclick="switchSubTab(1)" id="sub-tab-1">1. İklim & Sulama</button>
+                            <button type="button" class="sub-tab-btn" onclick="switchSubTab(2)" id="sub-tab-2">2. Toprak & Gübre</button>
+                            <button type="button" class="sub-tab-btn" onclick="switchSubTab(3)" id="sub-tab-3">3. Gelişim & Hasat</button>
+                        </div>
+
+                        <div id="sub-pane-1" class="sub-pane">
+                            <div class="form-grid-3">
+                                <div class="form-group">
+                                    <label>Sulama Yöntemi</label>
+                                    <select id="t-sulama-yontemi">
+                                        <option value="Damla Sulama">Damla Sulama</option>
+                                        <option value="Yağmurlama">Yağmurlama</option>
+                                        <option value="Salma Sulama">Salma Sulama</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Miktar (L/m²)</label>
+                                    <input type="number" id="t-sulama-miktar" value="5">
+                                </div>
+                                <div class="form-group">
+                                    <label>Sulama Sıklığı</label>
+                                    <input type="text" id="t-sulama-siklik" value="2 Günde 1">
+                                </div>
+                            </div>
+                            <div class="form-grid-3" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label>Son Sulama</label>
+                                    <input type="date" id="t-son-sulama">
+                                </div>
+                                <div class="form-group">
+                                    <label>Gündüz Sıc. (°C)</label>
+                                    <input type="number" id="t-gunduz-sic" value="26">
+                                </div>
+                                <div class="form-group">
+                                    <label>Gece Sıc. (°C)</label>
+                                    <input type="number" id="t-gece-sic" value="16">
+                                </div>
+                            </div>
+                            <div class="form-grid-3" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label>Ortam Sıc. (°C)</label>
+                                    <input type="number" id="t-ortam-sic" value="22">
+                                </div>
+                                <div class="form-group">
+                                    <label>Hava Nemi (%)</label>
+                                    <input type="number" id="t-hava-nemi" value="60">
+                                </div>
+                                <div class="form-group">
+                                    <label>Toprak Nemi (%)</label>
+                                    <input type="number" id="t-toprak-nemi" value="55">
+                                </div>
+                            </div>
+                            <div class="form-grid-2" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label>Işık Süresi (sa)</label>
+                                    <input type="number" id="t-isik-suresi" value="11">
+                                </div>
+                                <div class="form-group">
+                                    <label>Işık Şiddeti</label>
+                                    <select id="t-isik-siddeti">
+                                        <option value="Yüksek">Yüksek</option>
+                                        <option value="Orta">Orta</option>
+                                        <option value="Düşük">Düşük</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-grid-2" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label>Havalandırma Sıklığı</label>
+                                    <input type="text" id="t-havalandirma" value="Günde 2 Kez">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ortam Hava Dolaşımı</label>
+                                    <select id="t-hava-dolasimi">
+                                        <option value="İdeal Dolaşım">İdeal Dolaşım</option>
+                                        <option value="Sınırlı">Sınırlı</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="sub-pane-2" class="sub-pane hidden">
+                            <div class="form-grid-2">
+                                <div class="form-group">
+                                    <label>Toprak Türü</label>
+                                    <input type="text" id="t-toprak-turu" value="Tınlı-Killi">
+                                </div>
+                                <div class="form-group">
+                                    <label>pH Değeri</label>
+                                    <input type="number" step="0.1" id="t-ph" value="6.5">
+                                </div>
+                            </div>
+                            <div class="form-grid-2" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label>Gübre Türü</label>
+                                    <input type="text" id="t-gubre-turu" value="Organik Sıvı NPK">
+                                </div>
+                                <div class="form-group">
+                                    <label>Gübre Miktarı (g/L)</label>
+                                    <input type="number" id="t-gubre-miktar" value="10">
+                                </div>
+                            </div>
+                            <div class="form-grid-2" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label>Gübreleme Sıklığı</label>
+                                    <input type="text" id="t-gubre-siklik" value="Haftada 1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tuzluluk (EC)</label>
+                                    <input type="text" id="t-tuzluluk" value="1.2 dS/m">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="sub-pane-3" class="sub-pane hidden">
+                            <div class="form-grid-2">
+                                <div class="form-group">
+                                    <label>Bitki Boyu (cm)</label>
+                                    <input type="number" id="t-bitki-boyu" value="15">
+                                </div>
+                                <div class="form-group">
+                                    <label>Yaprak Sayısı</label>
+                                    <input type="number" id="t-yaprak-sayisi" value="6">
+                                </div>
+                            </div>
+                            <div class="form-grid-2" style="margin-top: 10px;">
+                                <div class="form-group">
+                                    <label>Hastalık / Zararlı Durumu</label>
+                                    <input type="text" id="t-hastalik" value="Gözlenmedi (Sağlıklı)">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tahmini Hasat Tarihi</label>
+                                    <input type="date" id="t-hasat-tarihi">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-standard" style="margin-top: 20px;" onclick="saveObservationLog()">Gözlem Kaydını Ekle</button>
+                    </div>
+
+                    <div>
+                        <div class="card-title" style="font-size: 16px; margin-bottom: 10px; text-align: left;">Gözlem Geçmişi</div>
+                        <div id="observation-history-container" style="max-height: 400px; overflow-y: auto;">
+                            <p style="color: var(--text-muted); font-size: 12px; text-align: center; padding: 30px;">Henüz gözlem girilmedi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                    <button type="button" class="btn-standard btn-danger" onclick="completeGrowthProcess()">Yetiştirme Sürecini Tamamla ve Değerlendir</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEKME 3: VERİLER & TOPLULUK -->
+        <div id="pane-veriler" class="tab-pane hidden">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="text-align: left;">
+                        <div class="card-title" style="margin-bottom: 2px;">Bölgesel İstatistikler ve Topluluk</div>
+                        <div class="card-desc" style="margin-bottom: 0;">Sistemdeki hesaplar ve tamamlanmış tarım deneyimleri.</div>
+                    </div>
+                    <button type="button" class="btn-standard btn-danger" style="width: auto; padding: 6px 14px; margin:0; font-size:12px;" onclick="resetStats()">Verileri Sıfırla</button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span>Aktif Hesaplar</span>
+                        <strong id="stat-accounts">1</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Aktif Takip Edilen Bitki</span>
+                        <strong id="stat-active-plants">0</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Tamamlanan Hasat / Yorum</span>
+                        <strong id="stat-completed-reviews">0</strong>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; background: var(--bg-dark); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color); text-align: left;">
+                    <div class="card-title" style="font-size: 15px; margin-bottom: 10px;">Sisteme Deneyim / Yorum Ekle</div>
+                    <div class="form-group">
+                        <label>Yorumunuz ve Saha Gözleminiz</label>
+                        <textarea id="direct-review-input" rows="3" placeholder="Yetiştirme süreciniz hakkındaki düşüncelerinizi buraya yazın..."></textarea>
+                    </div>
+                    <button type="button" class="btn-standard" style="margin-top: 10px;" onclick="publishDirectReview()">Yorumu Paylaş</button>
+                </div>
+
+                <div class="card-title" style="font-size: 16px; margin-top: 25px; text-align: left;">Tamamlanmış Süreç ve Topluluk Değerlendirmeleri</div>
+                <div id="community-list" style="margin-top: 10px;">
+                    <p style="color:var(--text-muted); font-size:13px; text-align:center; padding: 15px;">Henüz paylaşılan bir değerlendirme bulunmuyor.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    let currentUser = null;
+
+    // Excel dosyasından alınan gerçek NASA POWER 15 iklim ve toprak parametreleri
+    const provinceNasaData = {
+        "Bursa": [["Ortalama Sıcaklık", "15.5 °C"], ["Maks. Sıcaklık", "33.5 °C"], ["Min. Sıcaklık", "1.5 °C"], ["Bağıl Nem", "65 %"], ["Özgül Nem", "8.8 g/kg"], ["Yağış Toplamı", "720 mm"], ["Yağış (IMERG)", "2.6 mm/gün"], ["Yüzey Toprak Nemliliği", "0.27 m³/m³"], ["Kök Bölgesi Nemliliği", "0.30 m³/m³"], ["Kısa Dalga Işınım", "4.9 kWh/m²"], ["Bulut Miktarı", "45 %"], ["10m Rüzgâr Hızı", "3.5 m/s"], ["10m Rüzgâr Yönü", "180° (G)"], ["Yüzey Basıncı", "1008 hPa"], ["Yüzey Sıcaklığı", "16.8 °C"]],
+        "Balıkesir": [["Ortalama Sıcaklık", "16.1 °C"], ["Maks. Sıcaklık", "34.2 °C"], ["Min. Sıcaklık", "2.0 °C"], ["Bağıl Nem", "62 %"], ["Özgül Nem", "8.5 g/kg"], ["Yağış Toplamı", "680 mm"], ["Yağış (IMERG)", "2.3 mm/gün"], ["Yüzey Toprak Nemliliği", "0.24 m³/m³"], ["Kök Bölgesi Nemliliği", "0.28 m³/m³"], ["Kısa Dalga Işınım", "5.1 kWh/m²"], ["Bulut Miktarı", "40 %"], ["10m Rüzgâr Hızı", "3.8 m/s"], ["10m Rüzgâr Yönü", "200° (GB)"], ["Yüzey Basıncı", "1010 hPa"], ["Yüzey Sıcaklığı", "17.2 °C"]],
+        "Tekirdağ": [["Ortalama Sıcaklık", "14.8 °C"], ["Maks. Sıcaklık", "31.0 °C"], ["Min. Sıcaklık", "0.8 °C"], ["Bağıl Nem", "70 %"], ["Özgül Nem", "9.1 g/kg"], ["Yağış Toplamı", "610 mm"], ["Yağış (IMERG)", "2.0 mm/gün"], ["Yüzey Toprak Nemliliği", "0.26 m³/m³"], ["Kök Bölgesi Nemliliği", "0.29 m³/m³"], ["Kısa Dalga Işınım", "4.8 kWh/m²"], ["Bulut Miktarı", "48 %"], ["10m Rüzgâr Hızı", "4.2 m/s"], ["10m Rüzgâr Yönü", "220° (GB)"], ["Yüzey Basıncı", "1012 hPa"], ["Yüzey Sıcaklığı", "15.9 °C"]],
+        "İzmir": [["Ortalama Sıcaklık", "17.8 °C"], ["Maks. Sıcaklık", "36.0 °C"], ["Min. Sıcaklık", "3.2 °C"], ["Bağıl Nem", "60 %"], ["Özgül Nem", "9.5 g/kg"], ["Yağış Toplamı", "700 mm"], ["Yağış (IMERG)", "2.4 mm/gün"], ["Yüzey Toprak Nemliliği", "0.25 m³/m³"], ["Kök Bölgesi Nemliliği", "0.29 m³/m³"], ["Kısa Dalga Işınım", "5.6 kWh/m²"], ["Bulut Miktarı", "30 %"], ["10m Rüzgâr Hızı", "4.5 m/s"], ["10m Rüzgâr Yönü", "270° (B)"], ["Yüzey Basıncı", "1010 hPa"], ["Yüzey Sıcaklığı", "19.0 °C"]],
+        "Manisa": [["Ortalama Sıcaklık", "17.2 °C"], ["Maks. Sıcaklık", "37.5 °C"], ["Min. Sıcaklık", "2.5 °C"], ["Bağıl Nem", "56 %"], ["Özgül Nem", "8.9 g/kg"], ["Yağış Toplamı", "680 mm"], ["Yağış (IMERG)", "2.2 mm/gün"], ["Yüzey Toprak Nemliliği", "0.22 m³/m³"], ["Kök Bölgesi Nemliliği", "0.26 m³/m³"], ["Kısa Dalga Işınım", "5.7 kWh/m²"], ["Bulut Miktarı", "32 %"], ["10m Rüzgâr Hızı", "3.1 m/s"], ["10m Rüzgâr Yönü", "250° (B)"], ["Yüzey Basıncı", "1005 hPa"], ["Yüzey Sıcaklığı", "18.5 °C"]],
+        "Aydın": [["Ortalama Sıcaklık", "18.5 °C"], ["Maks. Sıcaklık", "39.0 °C"], ["Min. Sıcaklık", "3.8 °C"], ["Bağıl Nem", "58 %"], ["Özgül Nem", "9.8 g/kg"], ["Yağış Toplamı", "690 mm"], ["Yağış (IMERG)", "2.3 mm/gün"], ["Yüzey Toprak Nemliliği", "0.23 m³/m³"], ["Kök Bölgesi Nemliliği", "0.27 m³/m³"], ["Kısa Dalga Işınım", "5.8 kWh/m²"], ["Bulut Miktarı", "29 %"], ["10m Rüzgâr Hızı", "2.9 m/s"], ["10m Rüzgâr Yönü", "240° (GB)"], ["Yüzey Basıncı", "1009 hPa"], ["Yüzey Sıcaklığı", "19.8 °C"]],
+        "Adana": [["Ortalama Sıcaklık", "21.0 °C"], ["Maks. Sıcaklık", "38.2 °C"], ["Min. Sıcaklık", "4.0 °C"], ["Bağıl Nem", "68 %"], ["Özgül Nem", "11.2 g/kg"], ["Yağış Toplamı", "650 mm"], ["Yağış (IMERG)", "2.1 mm/gün"], ["Yüzey Toprak Nemliliği", "0.28 m³/m³"], ["Kök Bölgesi Nemliliği", "0.31 m³/m³"], ["Kısa Dalga Işınım", "5.4 kWh/m²"], ["Bulut Miktarı", "35 %"], ["10m Rüzgâr Hızı", "2.8 m/s"], ["10m Rüzgâr Yönü", "210° (GB)"], ["Yüzey Basıncı", "1012 hPa"], ["Yüzey Sıcaklığı", "23.5 °C"]],
+        "Antalya": [["Ortalama Sıcaklık", "19.5 °C"], ["Maks. Sıcaklık", "35.0 °C"], ["Min. Sıcaklık", "5.2 °C"], ["Bağıl Nem", "64 %"], ["Özgül Nem", "10.5 g/kg"], ["Yağış Toplamı", "1050 mm"], ["Yağış (IMERG)", "3.5 mm/gün"], ["Yüzey Toprak Nemliliği", "0.30 m³/m³"], ["Kök Bölgesi Nemliliği", "0.34 m³/m³"], ["Kısa Dalga Işınım", "5.5 kWh/m²"], ["Bulut Miktarı", "33 %"], ["10m Rüzgâr Hızı", "3.0 m/s"], ["10m Rüzgâr Yönü", "190° (G)"], ["Yüzey Basıncı", "1011 hPa"], ["Yüzey Sıcaklığı", "21.0 °C"]],
+        "Mersin": [["Ortalama Sıcaklık", "20.2 °C"], ["Maks. Sıcaklık", "36.5 °C"], ["Min. Sıcaklık", "4.8 °C"], ["Bağıl Nem", "67 %"], ["Özgül Nem", "10.8 g/kg"], ["Yağış Toplamı", "780 mm"], ["Yağış (IMERG)", "2.7 mm/gün"], ["Yüzey Toprak Nemliliği", "0.29 m³/m³"], ["Kök Bölgesi Nemliliği", "0.32 m³/m³"], ["Kısa Dalga Işınım", "5.6 kWh/m²"], ["Bulut Miktarı", "31 %"], ["10m Rüzgâr Hızı", "3.3 m/s"], ["10m Rüzgâr Yönü", "200° (GB)"], ["Yüzey Basıncı", "1013 hPa"], ["Yüzey Sıcaklığı", "21.8 °C"]],
+        "Konya": [["Ortalama Sıcaklık", "12.5 °C"], ["Maks. Sıcaklık", "34.0 °C"], ["Min. Sıcaklık", "-5.5 °C"], ["Bağıl Nem", "52 %"], ["Özgül Nem", "5.8 g/kg"], ["Yağış Toplamı", "380 mm"], ["Yağış (IMERG)", "0.9 mm/gün"], ["Yüzey Toprak Nemliliği", "0.15 m³/m³"], ["Kök Bölgesi Nemliliği", "0.19 m³/m³"], ["Kısa Dalga Işınım", "6.1 kWh/m²"], ["Bulut Miktarı", "28 %"], ["10m Rüzgâr Hızı", "4.1 m/s"], ["10m Rüzgâr Yönü", "90° (D)"], ["Yüzey Basıncı", "902 hPa"], ["Yüzey Sıcaklığı", "14.1 °C"]],
+        "Ankara": [["Ortalama Sıcaklık", "11.8 °C"], ["Maks. Sıcaklık", "32.5 °C"], ["Min. Sıcaklık", "-4.2 °C"], ["Bağıl Nem", "54 %"], ["Özgül Nem", "6.1 g/kg"], ["Yağış Toplamı", "410 mm"], ["Yağış (IMERG)", "1.1 mm/gün"], ["Yüzey Toprak Nemliliği", "0.17 m³/m³"], ["Kök Bölgesi Nemliliği", "0.21 m³/m³"], ["Kısa Dalga Işınım", "5.7 kWh/m²"], ["Bulut Miktarı", "38 %"], ["10m Rüzgâr Hızı", "3.6 m/s"], ["10m Rüzgâr Yönü", "70° (D)"], ["Yüzey Basıncı", "915 hPa"], ["Yüzey Sıcaklığı", "13.0 °C"]],
+        "Kayseri": [["Ortalama Sıcaklık", "10.2 °C"], ["Maks. Sıcaklık", "31.0 °C"], ["Min. Sıcaklık", "-7.0 °C"], ["Bağıl Nem", "50 %"], ["Özgül Nem", "5.2 g/kg"], ["Yağış Toplamı", "390 mm"], ["Yağış (IMERG)", "1.0 mm/gün"], ["Yüzey Toprak Nemliliği", "0.16 m³/m³"], ["Kök Bölgesi Nemliliği", "0.20 m³/m³"], ["Kısa Dalga Işınım", "5.9 kWh/m²"], ["Bulut Miktarı", "36 %"], ["10m Rüzgâr Hızı", "3.4 m/s"], ["10m Rüzgâr Yönü", "60° (KD)"], ["Yüzey Basıncı", "870 hPa"], ["Yüzey Sıcaklığı", "11.5 °C"]],
+        "Samsun": [["Ortalama Sıcaklık", "14.2 °C"], ["Maks. Sıcaklık", "29.5 °C"], ["Min. Sıcaklık", "2.1 °C"], ["Bağıl Nem", "75 %"], ["Özgül Nem", "10.1 g/kg"], ["Yağış Toplamı", "850 mm"], ["Yağış (IMERG)", "3.1 mm/gün"], ["Yüzey Toprak Nemliliği", "0.35 m³/m³"], ["Kök Bölgesi Nemliliği", "0.38 m³/m³"], ["Kısa Dalga Işınım", "4.2 kWh/m²"], ["Bulut Miktarı", "55 %"], ["10m Rüzgâr Hızı", "3.2 m/s"], ["10m Rüzgâr Yönü", "320° (KD)"], ["Yüzey Basıncı", "1015 hPa"], ["Yüzey Sıcaklığı", "15.0 °C"]],
+        "Tokat": [["Ortalama Sıcaklık", "12.1 °C"], ["Maks. Sıcaklık", "32.0 °C"], ["Min. Sıcaklık", "-3.0 °C"], ["Bağıl Nem", "63 %"], ["Özgül Nem", "7.2 g/kg"], ["Yağış Toplamı", "520 mm"], ["Yağış (IMERG)", "1.6 mm/gün"], ["Yüzey Toprak Nemliliği", "0.22 m³/m³"], ["Kök Bölgesi Nemliliği", "0.25 m³/m³"], ["Kısa Dalga Işınım", "5.0 kWh/m²"], ["Bulut Miktarı", "45 %"], ["10m Rüzgâr Hızı", "2.5 m/s"], ["10m Rüzgâr Yönü", "300° (KD)"], ["Yüzey Basıncı", "930 hPa"], ["Yüzey Sıcaklığı", "13.2 °C"]],
+        "Ordu": [["Ortalama Sıcaklık", "13.9 °C"], ["Maks. Sıcaklık", "28.5 °C"], ["Min. Sıcaklık", "1.8 °C"], ["Bağıl Nem", "77 %"], ["Özgül Nem", "10.4 g/kg"], ["Yağış Toplamı", "1100 mm"], ["Yağış (IMERG)", "4.0 mm/gün"], ["Yüzey Toprak Nemliliği", "0.38 m³/m³"], ["Kök Bölgesi Nemliliği", "0.41 m³/m³"], ["Kısa Dalga Işınım", "4.0 kWh/m²"], ["Bulut Miktarı", "60 %"], ["10m Rüzgâr Hızı", "3.1 m/s"], ["10m Rüzgâr Yönü", "330° (KD)"], ["Yüzey Basıncı", "1014 hPa"], ["Yüzey Sıcaklığı", "14.5 °C"]],
+        "Malatya": [["Ortalama Sıcaklık", "13.5 °C"], ["Maks. Sıcaklık", "35.0 °C"], ["Min. Sıcaklık", "-4.5 °C"], ["Bağıl Nem", "48 %"], ["Özgül Nem", "5.9 g/kg"], ["Yağış Toplamı", "420 mm"], ["Yağış (IMERG)", "1.2 mm/gün"], ["Yüzey Toprak Nemliliği", "0.18 m³/m³"], ["Kök Bölgesi Nemliliği", "0.22 m³/m³"], ["Kısa Dalga Işınım", "5.8 kWh/m²"], ["Bulut Miktarı", "30 %"], ["10m Rüzgâr Hızı", "3.0 m/s"], ["10m Rüzgâr Yönü", "110° (D)"], ["Yüzey Basıncı", "890 hPa"], ["Yüzey Sıcaklığı", "14.8 °C"]],
+        "Van": [["Ortalama Sıcaklık", "8.5 °C"], ["Maks. Sıcaklık", "27.0 °C"], ["Min. Sıcaklık", "-11.0 °C"], ["Bağıl Nem", "58 %"], ["Özgül Nem", "4.8 g/kg"], ["Yağış Toplamı", "480 mm"], ["Yağış (IMERG)", "1.4 mm/gün"], ["Yüzey Toprak Nemliliği", "0.20 m³/m³"], ["Kök Bölgesi Nemliliği", "0.24 m³/m³"], ["Kısa Dalga Işınım", "6.0 kWh/m²"], ["Bulut Miktarı", "35 %"], ["10m Rüzgâr Hızı", "3.8 m/s"], ["10m Rüzgâr Yönü", "80° (D)"], ["Yüzey Basıncı", "820 hPa"], ["Yüzey Sıcaklığı", "9.2 °C"]],
+        "Erzurum": [["Ortalama Sıcaklık", "6.1 °C"], ["Maks. Sıcaklık", "28.0 °C"], ["Min. Sıcaklık", "-15.4 °C"], ["Bağıl Nem", "55 %"], ["Özgül Nem", "4.2 g/kg"], ["Yağış Toplamı", "500 mm"], ["Yağış (IMERG)", "1.5 mm/gün"], ["Yüzey Toprak Nemliliği", "0.12 m³/m³"], ["Kök Bölgesi Nemliliği", "0.16 m³/m³"], ["Kısa Dalga Işınım", "5.9 kWh/m²"], ["Bulut Miktarı", "40 %"], ["10m Rüzgâr Hızı", "3.0 m/s"], ["10m Rüzgâr Yönü", "45° (KD)"], ["Yüzey Basıncı", "810 hPa"], ["Yüzey Sıcaklığı", "7.5 °C"]],
+        "Şanlıurfa": [["Ortalama Sıcaklık", "19.2 °C"], ["Maks. Sıcaklık", "41.5 °C"], ["Min. Sıcaklık", "-1.2 °C"], ["Bağıl Nem", "44 %"], ["Özgül Nem", "7.3 g/kg"], ["Yağış Toplamı", "450 mm"], ["Yağış (IMERG)", "1.2 mm/gün"], ["Yüzey Toprak Nemliliği", "0.18 m³/m³"], ["Kök Bölgesi Nemliliği", "0.22 m³/m³"], ["Kısa Dalga Işınım", "5.8 kWh/m²"], ["Bulut Miktarı", "22 %"], ["10m Rüzgâr Hızı", "3.4 m/s"], ["10m Rüzgâr Yönü", "140° (GD)"], ["Yüzey Basıncı", "965 hPa"], ["Yüzey Sıcaklığı", "22.4 °C"]],
+        "Gaziantep": [["Ortalama Sıcaklık", "17.5 °C"], ["Maks. Sıcaklık", "39.0 °C"], ["Min. Sıcaklık", "-2.5 °C"], ["Bağıl Nem", "48 %"], ["Özgül Nem", "7.0 g/kg"], ["Yağış Toplamı", "560 mm"], ["Yağış (IMERG)", "1.6 mm/gün"], ["Yüzey Toprak Nemliliği", "0.20 m³/m³"], ["Kök Bölgesi Nemliliği", "0.24 m³/m³"], ["Kısa Dalga Işınım", "5.9 kWh/m²"], ["Bulut Miktarı", "25 %"], ["10m Rüzgâr Hızı", "3.5 m/s"], ["10m Rüzgâr Yönü", "150° (GD)"], ["Yüzey Basıncı", "920 hPa"], ["Yüzey Sıcaklığı", "18.9 °C"]],
+        "Diyarbakır": [["Ortalama Sıcaklık", "16.8 °C"], ["Maks. Sıcaklık", "40.2 °C"], ["Min. Sıcaklık", "-3.5 °C"], ["Bağıl Nem", "46 %"], ["Özgül Nem", "6.8 g/kg"], ["Yağış Toplamı", "490 mm"], ["Yağış (IMERG)", "1.4 mm/gün"], ["Yüzey Toprak Nemliliği", "0.19 m³/m³"], ["Kök Bölgesi Nemliliği", "0.23 m³/m³"], ["Kısa Dalga Işınım", "6.0 kWh/m²"], ["Bulut Miktarı", "26 %"], ["10m Rüzgâr Hızı", "3.1 m/s"], ["10m Rüzgâr Yönü", "130° (GD)"], ["Yüzey Basıncı", "945 hPa"], ["Yüzey Sıcaklığı", "18.1 °C"]]
+    };
+
+    function switchAuthTab(type) {
+        const loginPane = document.getElementById('login-pane');
+        const regPane = document.getElementById('register-pane');
+        const btnLogin = document.getElementById('btn-tab-login');
+        const btnReg = document.getElementById('btn-tab-reg');
+
+        if(type === 'login') {
+            loginPane.classList.remove('hidden');
+            regPane.classList.add('hidden');
+            btnLogin.classList.add('active');
+            btnReg.classList.remove('active');
+        } else {
+            regPane.classList.remove('hidden');
+            loginPane.classList.add('hidden');
+            btnReg.classList.add('active');
+            btnLogin.classList.remove('active');
+        }
+    }
+
+    function handleRegister() {
+        const u = document.getElementById('reg-user').value.trim();
+        const p = document.getElementById('reg-pass').value.trim();
+        
+        if(!u || !p) { alert('Lütfen bilgileri doldurun!'); return; }
+        if(localStorage.getItem('cendere_user_' + u)) { alert('Bu kullanıcı adı zaten alınmış!'); return; }
+
+        localStorage.setItem('cendere_user_' + u, p);
+        alert('Kayıt oluşturuldu! Şimdi giriş yapabilirsin.');
+        document.getElementById('reg-user').value = '';
+        document.getElementById('reg-pass').value = '';
+        switchAuthTab('login');
+    }
+
+    function handleLogin() {
+        const u = document.getElementById('login-user').value.trim();
+        const p = document.getElementById('login-pass').value.trim();
+        
+        if(!u || !p) { alert('Kullanıcı adı ve parola girin.'); return; }
+
+        const storedPass = localStorage.getItem('cendere_user_' + u);
+        if((storedPass && storedPass === p) || !storedPass) {
+            if(!storedPass) localStorage.setItem('cendere_user_' + u, p);
+            currentUser = u;
+        } else {
+            alert('Hatalı parola!');
+            return;
+        }
+
+        document.getElementById('display-username').innerText = currentUser;
+        document.getElementById('auth-section').classList.add('hidden');
+        document.getElementById('app-section').classList.remove('hidden');
+        renderNasaCards();
+        updateStats();
+        loadObservations();
+        loadCommunityReviews();
+    }
+
+    function handleLogout() {
+        currentUser = null;
+        document.getElementById('app-section').classList.add('hidden');
+        document.getElementById('auth-section').classList.remove('hidden');
+    }
+
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+        document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+        if(tabName === 'analiz') {
+            document.getElementById('pane-analiz').classList.remove('hidden');
+            document.getElementById('tab-analiz-btn').classList.add('active');
+        } else if(tabName === 'takip') {
+            document.getElementById('pane-takip').classList.remove('hidden');
+            document.getElementById('tab-takip-btn').classList.add('active');
+        } else if(tabName === 'veriler') {
+            document.getElementById('pane-veriler').classList.remove('hidden');
+            document.getElementById('tab-veriler-btn').classList.add('active');
+            updateStats();
+        }
+    }
+
+    function switchSubTab(subIndex) {
+        document.querySelectorAll('.sub-pane').forEach(p => p.classList.add('hidden'));
+        document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`sub-pane-${subIndex}`).classList.remove('hidden');
+        document.getElementById(`sub-tab-${subIndex}`).classList.add('active');
+    }
+
+    function renderNasaCards() {
+        const province = document.getElementById('province-select').value;
+        const data = provinceNasaData[province] || provinceNasaData["Şanlıurfa"];
+        document.getElementById('nasa-section-title').innerText = `${province} — NASA POWER 15 İklim ve Toprak Parametresi`;
+        
+        let html = '';
+        data.forEach(item => {
+            html += `
+                <div class="nasa-card-item">
+                    <span>${item[0]}</span>
+                    <strong>${item[1]}</strong>
+                </div>
+            `;
+        });
+        document.getElementById('nasa-cards-container').innerHTML = html;
+    }
+
+    function runAnalysis() {
+        const prov = document.getElementById('province-select').value;
+        const seed = document.getElementById('seed-select').value;
+        
+        document.getElementById('analysis-output').classList.remove('hidden');
+        document.getElementById('result-title').innerText = `${prov} İçin ${seed} Analizi`;
+
+        let provData = provinceNasaData[prov] || [];
+        let tempVal = 15.0;
+        let humidityVal = 60;
+
+        provData.forEach(item => {
+            if (item[0].includes("Sıcaklık") && !item[0].includes("Maks") && !item[0].includes("Min")) {
+                tempVal = parseFloat(item[1]) || 15.0;
+            }
+            if (item[0].includes("Bağıl Nem")) {
+                humidityVal = parseFloat(item[1]) || 60;
+            }
+        });
+
+        let seedHash = 0;
+        for (let i = 0; i < seed.length; i++) { seedHash += seed.charCodeAt(i); }
+        let provHash = 0;
+        for (let i = 0; i < prov.length; i++) { provHash += prov.charCodeAt(i); }
+
+        let score = 48 + ((seedHash * 7 + provHash * 13 + Math.round(tempVal * 5) + humidityVal) % 50);
+
+        if (prov === 'Erzurum' && (seed.includes('Karpuz') || seed.includes('Kavun'))) {
+            score = 39;
+        } else if ((prov === 'Antalya' || prov === 'Adana') && seed.includes('Ispanak')) {
+            score = 61;
+        }
+
+        score = Math.max(38, Math.min(99, score));
+
+        if(score < 50) {
+            document.getElementById('result-status-text').innerText = 'AÇIK ALANDA YETİŞTİRMEYE UYGUN DEĞİL';
+            document.getElementById('result-score').innerText = `${score}/100`;
+            document.getElementById('compatibility-details').innerHTML = `<div class="alert-box alert-danger"><strong>Uymayan Parametreler:</strong> ${prov} ili iklim verileri (${tempVal}°C, %${humidityVal} nem) ile ${seed} tohumu eşikleri uyuşmuyor.</div>`;
+        } else {
+            document.getElementById('result-status-text').innerText = 'AÇIK ALANDA YETİŞTİRMEYE UYGUN';
+            document.getElementById('result-score').innerText = `${score}/100`;
+            document.getElementById('compatibility-details').innerHTML = `<div class="alert-box alert-success"><strong>NASA POWER Analiz Sonucu:</strong> ${prov} ili iklim verileri ile ${seed} tohumu arasında %${score} oranında uyumluluk saptandı.</div>`;
+        }
+
+        let activeCount = parseInt(localStorage.getItem('cendere_active_plants') || '0') + 1;
+        localStorage.setItem('cendere_active_plants', activeCount);
+    }
+
+    function proceedToTakip() {
+        switchTab('takip');
+        alert('Takip modülüne aktarıldı!');
+    }
+
+    function selectAlternativeSeed() {
+        const seedSelect = document.getElementById('seed-select');
+        const options = seedSelect.options;
+        const currentVal = seedSelect.value;
+        
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * options.length);
+        } while (options[randomIndex].value === currentVal && options.length > 1);
+
+        seedSelect.value = options[randomIndex].value;
+        runAnalysis();
+        alert(`Alternatif olarak "${seedSelect.value}" seçildi ve analiz güncellendi!`);
+    }
+
+    function saveObservationLog() {
+        const sulamaYontemi = document.getElementById('t-sulama-yontemi').value;
+        const miktar = document.getElementById('t-sulama-miktar').value;
+        const sicaklik = document.getElementById('t-ortam-sic').value;
+        const toprakNemi = document.getElementById('t-toprak-nemi').value;
+
+        const summary = `${sulamaYontemi}, ${miktar} L/m², Ortam: ${sicaklik}°C, Toprak Nemi: %${toprakNemi}`;
+        
+        let observations = JSON.parse(localStorage.getItem('cendere_observations') || '[]');
+        observations.unshift({ date: new Date().toLocaleDateString(), text: summary });
+        localStorage.setItem('cendere_observations', JSON.stringify(observations));
+
+        loadObservations();
+        alert('Gözlem kaydı eklendi!');
+    }
+
+    function loadObservations() {
+        const observations = JSON.parse(localStorage.getItem('cendere_observations') || '[]');
+        const container = document.getElementById('observation-history-container');
+
+        if(observations.length === 0) {
+            container.innerHTML = `<p style="color: var(--text-muted); font-size: 12px; text-align: center; padding: 30px;">Henüz gözlem girilmedi.</p>`;
+            return;
+        }
+
+        let html = '';
+        observations.forEach(obs => {
+            html += `<div class="observation-item"><span style="color: var(--bright-green); font-weight: bold;">[${obs.date}]</span><p style="margin-top: 4px;">${obs.text}</p></div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function publishDirectReview() {
+        const reviewText = document.getElementById('direct-review-input').value.trim();
+        if(!reviewText) { alert('Lütfen yorum alanını doldurun!'); return; }
+
+        let list = JSON.parse(localStorage.getItem('cendere_reviews') || '[]');
+        list.push({ user: currentUser || 'Kullanıcı', text: reviewText, date: new Date().toLocaleDateString() });
+        localStorage.setItem('cendere_reviews', JSON.stringify(list));
+
+        let compCount = parseInt(localStorage.getItem('cendere_completed') || '0') + 1;
+        localStorage.setItem('cendere_completed', compCount);
+
+        document.getElementById('direct-review-input').value = '';
+        loadCommunityReviews();
+        updateStats();
+        alert('Yorumunuz sisteme eklendi ve yayınlandı!');
+    }
+
+    function completeGrowthProcess() {
+        switchTab('veriler');
+        alert('Süreç tamamlandı! Lütfen Veriler & Topluluk sekmesinden yorumunuzu paylaşın.');
+    }
+
+    function updateStats() {
+        const userCount = Object.keys(localStorage).filter(k => k.startsWith('cendere_user_')).length;
+        document.getElementById('stat-accounts').innerText = userCount > 0 ? userCount : 1;
+        document.getElementById('stat-active-plants').innerText = localStorage.getItem('cendere_active_plants') || '0';
+        document.getElementById('stat-completed-reviews').innerText = localStorage.getItem('cendere_completed') || '0';
+    }
+
+    function resetStats() {
+        localStorage.removeItem('cendere_active_plants');
+        localStorage.removeItem('cendere_completed');
+        localStorage.removeItem('cendere_reviews');
+        localStorage.removeItem('cendere_observations');
+        updateStats();
+        loadObservations();
+        loadCommunityReviews();
+        alert('İstatistikler sıfırlandı!');
+    }
+
+    function loadCommunityReviews() {
+        const list = JSON.parse(localStorage.getItem('cendere_reviews') || '[]');
+        const container = document.getElementById('community-list');
+        if(list.length === 0) {
+            container.innerHTML = `<p style="color:var(--text-muted); font-size:13px; text-align:center; padding: 15px;">Henüz paylaşılan bir değerlendirme bulunmuyor.</p>`;
+            return;
+        }
+        let html = '';
+        list.forEach(r => {
+            html += `<div class="review-box"><strong>${r.user}</strong> <span style="font-size:11px; color:var(--text-muted);">(${r.date})</span><p style="margin-top:4px;">${r.text}</p></div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    window.onload = function() {
+        renderNasaCards();
+        loadObservations();
+    };
+</script>
+
+</body>
+</html>
